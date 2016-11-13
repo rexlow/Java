@@ -1,0 +1,3 @@
+interface Sides {
+  int printSide();
+}
