@@ -11,6 +11,7 @@ public class AnnualLoan extends Loan implements LoanInterface {
     this.oriLoan = oriLoan;
   }
 
+  @Override
   public double CalculateFee() {
     if (loanDuration >= 0 && loanDuration < 6) {
       balanceDue = oriLoan;

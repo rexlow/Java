@@ -4,10 +4,10 @@ public class DemoLoan {
 
     System.out.println("Time              Fee");
     System.out.println("-----------       -----------");
-    System.out.println("6  months          $800.00");
-    System.out.println("12 months          $1800.00");
-    System.out.println("18 months          $3000.00");
-    System.out.println("24 months          $4000.00\n");
+    System.out.println("6  months         $800.00");
+    System.out.println("12 months         $1800.00");
+    System.out.println("18 months         $3000.00");
+    System.out.println("24 months         $4000.00\n");
 
     AnnualLoan loanAli = new AnnualLoan("10 11 2016", 8, 5000);
     System.out.println("Loan For Ali");
