@@ -12,18 +12,26 @@ public class LabTest2 {
     int staffOption = scanner.nextInt();
 
     if (staffOption == 1) {
-      Permanent newStaff = new Permanent();
-      newStaff.Register();
-      newStaff.salaryCal();
-      newStaff.Show();
+      try {
+        Permanent newStaff = new Permanent();
+        newStaff.Register();
+        newStaff.salaryCal();
+        newStaff.Show();
+      } catch (RuntimeException e){
+        throw new RuntimeException();
+      }
+    } else if (staffOption == 2){
+      try {
+        PartTime newStaff = new PartTime();
+        newStaff.Register();
+        newStaff.salaryCal();
+        newStaff.Show();
+      } catch (RuntimeException e){
+        throw new RuntimeException();
+      }
     } else {
-      PartTime newStaff = new PartTime();
-      newStaff.Register();
-      newStaff.salaryCal();
-      newStaff.Show();
+      System.out.println("Please enter a valid option");
     }
-
-
   }
 
 }
