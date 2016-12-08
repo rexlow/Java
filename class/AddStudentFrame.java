@@ -1,5 +1,7 @@
 import java.awt.GridLayout;
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.UIManager;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import javax.swing.JFrame;
@@ -12,7 +14,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 
 // top level container
-public class AddStudentFrame extends JFrame {
+public class AddStudentFrame extends JFrame implements ActionListener {
 
   private JTextField textName = new JTextField();
   private JTextField textDateOfBirth = new JTextField();
@@ -31,6 +33,11 @@ public class AddStudentFrame extends JFrame {
 
     south.add(submitButton);
     south.add(resetButton);
+
+    //add action listener for buttons
+    submitButton.addActionListener(this);
+    resetButton.addActionListener(this);
+
     this.add(new JLabel("Add Student", JLabel.CENTER), BorderLayout.NORTH);
     this.add(center, BorderLayout.CENTER);
     this.add(south, BorderLayout.SOUTH);
@@ -61,9 +68,19 @@ public class AddStudentFrame extends JFrame {
     this.setVisible(true);
   }
 
+  //override ActionListener since we implemented it
+  @Override
+  public void actionPerformed(ActionEvent event) {
+    Object source = event.getSource();
+    if (source == submitButton) {
+      System.out.println("Submit button pressed");
+    } else if (source == resetButton) {
+      System.out.println("Reset button pressed");
+    }
+  }
+
   public static void main(String[] args) throws Exception {
     UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-    // UIManager.setLookAndFeel(new NimbusLookAndFeel());
     new AddStudentFrame();
   }
 
