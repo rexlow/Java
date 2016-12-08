@@ -1,6 +1,7 @@
 import java.awt.GridLayout;
 import java.awt.BorderLayout;
 import javax.swing.UIManager;
+import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -61,8 +62,8 @@ public class AddStudentFrame extends JFrame {
   }
 
   public static void main(String[] args) throws Exception {
-    // UIManager.setLookAndFeel(UIManager.getAuxiliaryLookAndFeels());
     UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+    // UIManager.setLookAndFeel(new NimbusLookAndFeel());
     new AddStudentFrame();
   }
 
