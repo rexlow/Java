@@ -16,6 +16,7 @@ import javax.swing.JButton;
 // top level container
 public class AddStudentFrame extends JFrame implements ActionListener {
 
+  private ButtonGroup groupGender = new ButtonGroup();
   private JTextField textName = new JTextField();
   private JTextField textDateOfBirth = new JTextField();
   private JRadioButton radioButtonMale = new JRadioButton("Male");
@@ -47,7 +48,7 @@ public class AddStudentFrame extends JFrame implements ActionListener {
     gender.add(radioButtonFemale);
 
     //create button group
-    ButtonGroup groupGender = new ButtonGroup();
+
     groupGender.add(radioButtonMale);
     groupGender.add(radioButtonFemale);
 
@@ -75,7 +76,10 @@ public class AddStudentFrame extends JFrame implements ActionListener {
     if (source == submitButton) {
       System.out.println("Submit button pressed");
     } else if (source == resetButton) {
-      System.out.println("Reset button pressed");
+      textName.setText("");
+      textDateOfBirth.setText("");
+      groupGender.clearSelection();
+      comboCourse.setSelectedIndex(-1);
     }
   }
 
