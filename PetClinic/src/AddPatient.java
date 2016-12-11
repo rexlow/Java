@@ -5,11 +5,21 @@ import javax.swing.*;
 
 public class AddPatient extends javax.swing.JFrame {
     
+    private static int ownerID;
+    
     Connection connection = null;
-
-    public AddPatient() {
+    
+    //custom constructor, accept patientID from table
+    public AddPatient(int ownerID) {
         initComponents();
         connection = SQLiteConnection.dbConnector();
+        ownerIDSetter(ownerID);
+    }
+
+    private void ownerIDSetter(int ownerID) {
+        System.out.println("setting: " + ownerID);
+        this.ownerID = ownerID;
+        petOwnerIDField.setText(String.valueOf(ownerID));
     }
 
     @SuppressWarnings("unchecked")
@@ -31,6 +41,8 @@ public class AddPatient extends javax.swing.JFrame {
         resetButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         closeButton = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        petOwnerIDField = new javax.swing.JTextField();
 
         jToggleButton1.setText("jToggleButton1");
 
@@ -79,6 +91,11 @@ public class AddPatient extends javax.swing.JFrame {
             }
         });
 
+        jLabel5.setFont(new java.awt.Font("Helvetica", 0, 14)); // NOI18N
+        jLabel5.setText("Pet OwnerID");
+
+        petOwnerIDField.setEditable(false);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -87,37 +104,42 @@ public class AddPatient extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(117, 117, 117)
-                        .addComponent(maleRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(49, 49, 49)
-                        .addComponent(femaleRadioButton)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 6, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(maleRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(49, 49, 49)
+                                .addComponent(femaleRadioButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(closeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(resetButton, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(petNameField)
-                                    .addComponent(petAgeField)
-                                    .addComponent(petBreedField))))
-                        .addContainerGap())))
+                                .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(petOwnerIDField, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE)
+                            .addComponent(petAgeField, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(petNameField, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(petBreedField))))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(petOwnerIDField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(petNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -139,7 +161,7 @@ public class AddPatient extends javax.swing.JFrame {
                     .addComponent(closeButton)
                     .addComponent(resetButton)
                     .addComponent(submitButton))
-                .addGap(27, 27, 27))
+                .addGap(28, 28, 28))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -150,7 +172,9 @@ public class AddPatient extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -168,7 +192,7 @@ public class AddPatient extends javax.swing.JFrame {
     }//GEN-LAST:event_resetButtonActionPerformed
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
-        String addPatientQuery = "INSERT INTO Patient (petID, petName, petBreed, petGender, petAge) VALUES(?,?,?,?,?)";
+        String addPatientQuery = "INSERT INTO Pet (petID, petName, petBreed, petGender, petAge, petOwner) VALUES(?,?,?,?,?,?)";
        
         try {
             String gender = "male";
@@ -178,18 +202,17 @@ public class AddPatient extends javax.swing.JFrame {
                 gender = "female";
             }
             System.out.println(gender);
-            PreparedStatement preparedStatement = connection.prepareStatement(addPatientQuery);
-            preparedStatement.setString(2, petNameField.getText());
-            preparedStatement.setString(3, petBreedField.getText());
-            preparedStatement.setString(4, gender);
-            preparedStatement.setString(5, petAgeField.getText());
-            
-            
-            preparedStatement.execute();
-            
-            preparedStatement.close();
+            try (PreparedStatement preparedStatement = connection.prepareStatement(addPatientQuery)) {
+                preparedStatement.setString(2, petNameField.getText());
+                preparedStatement.setString(3, petBreedField.getText());
+                preparedStatement.setString(4, gender);
+                preparedStatement.setString(5, petAgeField.getText());
+                preparedStatement.setInt(6, ownerID);
+                preparedStatement.execute();
+            }
             
             JOptionPane.showMessageDialog(null, "Successfull added patient");
+            dispose();
         } catch (SQLException ex) {
             Logger.getLogger(AddPatient.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, ex);
@@ -198,34 +221,8 @@ public class AddPatient extends javax.swing.JFrame {
     }//GEN-LAST:event_submitButtonActionPerformed
 
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddPatient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddPatient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddPatient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddPatient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AddPatient().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new AddPatient(ownerID).setVisible(true);
         });
     }
 
@@ -237,12 +234,14 @@ public class AddPatient extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JRadioButton maleRadioButton;
     private javax.swing.JTextField petAgeField;
     private javax.swing.JTextField petBreedField;
     private javax.swing.JTextField petNameField;
+    private javax.swing.JTextField petOwnerIDField;
     private javax.swing.JButton resetButton;
     private javax.swing.JButton submitButton;
     // End of variables declaration//GEN-END:variables
