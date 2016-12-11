@@ -7,7 +7,7 @@ public class SQLiteConnection {
         try {
             Class.forName("org.sqlite.JDBC");
             Connection conn = DriverManager.getConnection("jdbc:sqlite:/Users/rexlow/Desktop/Users.sqlite");
-            JOptionPane.showMessageDialog(null, "Connected");
+            System.out.print("Connected to database");
             return conn;
         } catch(Exception e) {
             JOptionPane.showMessageDialog(null, e);
