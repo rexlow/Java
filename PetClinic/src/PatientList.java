@@ -1,13 +1,13 @@
 import java.awt.event.MouseAdapter;
 import java.sql.*;
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
+import javax.swing.table.TableModel;
 import net.proteanit.sql.DbUtils;
 
 public class PatientList extends javax.swing.JFrame implements TableListener {
     
     private int ownerID;
+    private int petID;
 
     Connection connection = null;
     
@@ -24,6 +24,14 @@ public class PatientList extends javax.swing.JFrame implements TableListener {
     
     private int ownerIDGetter() {
         return ownerID;
+    }
+    
+    private void petIDSetter(int petID) {
+        this.petID = petID;
+    }
+    
+    private int petIDGetter() {
+        return petID;
     }
 
     @SuppressWarnings("unchecked")
@@ -84,6 +92,11 @@ public class PatientList extends javax.swing.JFrame implements TableListener {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        petTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                petTableMouseClicked(evt);
+            }
+        });
         jScrollPane4.setViewportView(petTable);
 
         jLabel2.setFont(new java.awt.Font("Helvetica", 0, 14)); // NOI18N
@@ -183,6 +196,10 @@ public class PatientList extends javax.swing.JFrame implements TableListener {
         }
     }//GEN-LAST:event_viewPetButtonActionPerformed
 
+    private void petTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_petTableMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_petTableMouseClicked
+
     public static void main(String args[]) {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
@@ -217,17 +234,30 @@ public class PatientList extends javax.swing.JFrame implements TableListener {
 
     @Override
     public void listenToUserEvent() {
-//        patientTable.getSelectionModel().addListSelectionListener((ListSelectionEvent e) -> {
-//            System.out.println(patientTable.getValueAt(patientTable.getSelectedRow(), 0).toString());
-//        });
         patientTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                int row = patientTable.rowAtPoint(evt.getPoint());
-                int col = patientTable.columnAtPoint(evt.getPoint());
+                int patientRow = patientTable.rowAtPoint(evt.getPoint());
+                int patientCol = patientTable.columnAtPoint(evt.getPoint());
                 
-                if (row >= 0 && col >= 0) {
-                    ownerIDSetter(row+1);
+                if (patientRow >= 0 && patientCol >= 0) {
+                    ownerIDSetter(patientRow+1);
+                }
+            }
+        });
+        
+        petTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                int petIndex = petTable.getSelectedRow();
+                TableModel petModel = petTable.getModel();
+                
+                String petIDString = petModel.getValueAt(petIndex, 0).toString();
+                int petID = Integer.valueOf(petIDString);
+                
+                //petID from database is always greater than 0
+                if (petID >= 0) {
+                    petIDSetter(petID);
                 }
             }
         });
