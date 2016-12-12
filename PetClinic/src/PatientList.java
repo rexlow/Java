@@ -48,8 +48,9 @@ public class PatientList extends javax.swing.JFrame implements TableListener {
         petTable = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         viewPetButton = new javax.swing.JButton();
+        checkPetButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         patientTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -72,7 +73,7 @@ public class PatientList extends javax.swing.JFrame implements TableListener {
         });
 
         jLabel1.setFont(new java.awt.Font("Helvetica", 0, 14)); // NOI18N
-        jLabel1.setText("Select patient from the table below to do operation");
+        jLabel1.setText("Select a patient from the table below to do operation");
 
         addPetButton.setText("Add Patient's Pet");
         addPetButton.addActionListener(new java.awt.event.ActionListener() {
@@ -109,6 +110,13 @@ public class PatientList extends javax.swing.JFrame implements TableListener {
             }
         });
 
+        checkPetButton.setText("Check Pet");
+        checkPetButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkPetButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -116,30 +124,30 @@ public class PatientList extends javax.swing.JFrame implements TableListener {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 950, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 950, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel2))
-                                .addGap(0, 8, Short.MAX_VALUE))))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(checkPetButton, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 636, Short.MAX_VALUE)
+                                    .addComponent(goBackButton, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(0, 8, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(goBackButton)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(viewPetButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(addPetButton)))
+                        .addComponent(viewPetButton, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(addPetButton, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(9, 9, 9)
+                .addContainerGap(9, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -151,9 +159,10 @@ public class PatientList extends javax.swing.JFrame implements TableListener {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(goBackButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(checkPetButton)
+                    .addComponent(goBackButton)))
         );
 
         pack();
@@ -176,14 +185,15 @@ public class PatientList extends javax.swing.JFrame implements TableListener {
         }
         
     }//GEN-LAST:event_addPetButtonActionPerformed
-
+    
+    //display pet on table from JOIN QUERY
     private void viewPetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewPetButtonActionPerformed
        //get ownerID for validation
        int localOwnerID = ownerIDGetter();
        
        //join operation
        if (localOwnerID <= 0) {
-            JOptionPane.showMessageDialog(null, "Please select a patient from the table");
+            JOptionPane.showMessageDialog(null, "Please select a patient from the Patient Table");
         } else {
             String joinPatientAndPet = "SELECT petID, petName, petBreed, petGender, petAge FROM Pet INNER JOIN Patient ON Pet.petOwner = Patient.patientID WHERE Pet.petOwner =  " + localOwnerID;
             try {
@@ -199,6 +209,16 @@ public class PatientList extends javax.swing.JFrame implements TableListener {
     private void petTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_petTableMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_petTableMouseClicked
+
+    private void checkPetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkPetButtonActionPerformed
+        int localPetID = petIDGetter();
+        
+        if (localPetID <= 0) {
+            JOptionPane.showMessageDialog(null, "Please select a pet from the Pet Table");
+        } else {
+            //create an object from Pet Class
+        }
+    }//GEN-LAST:event_checkPetButtonActionPerformed
 
     public static void main(String args[]) {
         /* Create and display the form */
@@ -219,11 +239,10 @@ public class PatientList extends javax.swing.JFrame implements TableListener {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addPetButton;
+    private javax.swing.JButton checkPetButton;
     private javax.swing.JButton goBackButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSplitPane jSplitPane1;
