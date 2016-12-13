@@ -5,9 +5,9 @@ import javax.swing.*;
 
 public class AddPatient extends javax.swing.JFrame {
     
-    private static int ownerID;
-    
     Connection connection = null;
+    
+    private static int ownerID;
     
     //custom constructor, accept patientID from table
     public AddPatient(int ownerID) {
@@ -18,7 +18,7 @@ public class AddPatient extends javax.swing.JFrame {
 
     private void ownerIDSetter(int ownerID) {
         System.out.println("setting: " + ownerID);
-        this.ownerID = ownerID;
+        AddPatient.ownerID = ownerID;
         petOwnerIDField.setText(String.valueOf(ownerID));
     }
 
@@ -58,7 +58,7 @@ public class AddPatient extends javax.swing.JFrame {
         jLabel2.setText("Pet Age");
 
         jLabel3.setFont(new java.awt.Font("Helvetica", 0, 14)); // NOI18N
-        jLabel3.setText("Breed");
+        jLabel3.setText("Pet Breed");
 
         submitButton.setText("Submit");
         submitButton.addActionListener(new java.awt.event.ActionListener() {

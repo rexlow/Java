@@ -195,7 +195,7 @@ public class PatientList extends javax.swing.JFrame implements TableListener {
        if (localOwnerID <= 0) {
             JOptionPane.showMessageDialog(null, "Please select a patient from the Patient Table");
         } else {
-            String joinPatientAndPet = "SELECT petID, petName, petBreed, petGender, petAge FROM Pet INNER JOIN Patient ON Pet.petOwner = Patient.patientID WHERE Pet.petOwner =  " + localOwnerID;
+            String joinPatientAndPet = "SELECT petID, petName, petBreed, petGender, petAge, petNote FROM Pet INNER JOIN Patient ON Pet.petOwner = Patient.patientID WHERE Pet.petOwner =  " + localOwnerID;
             try {
                 PreparedStatement preparedStatement = connection.prepareStatement(joinPatientAndPet);
                 ResultSet resultSet = preparedStatement.executeQuery();
@@ -217,6 +217,23 @@ public class PatientList extends javax.swing.JFrame implements TableListener {
             JOptionPane.showMessageDialog(null, "Please select a pet from the Pet Table");
         } else {
             //create an object from Pet Class
+            String checkPetQuery = "SELECT petName, petBreed, petGender, petAge, petNote, patientName FROM Pet INNER JOIN Patient ON Pet.petOwner = Patient.patientID WHERE Pet.petID = " + localPetID;
+            try {
+                PreparedStatement preparedStatement = connection.prepareStatement(checkPetQuery);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while(resultSet.next()) {
+                    String petName = resultSet.getString("petName");
+                    String petBreed = resultSet.getString("petBreed");
+                    String petGender = resultSet.getString("petGender");
+                    String petAge = resultSet.getString("petAge");
+                    String petNote = resultSet.getString("petNote");
+                    String patientName = resultSet.getString("patientName");
+                    Pet checkPetObject = new Pet(petName, patientName, petAge, petBreed, petGender, petNote);
+                    checkPetObject.setVisible(true);
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
         }
     }//GEN-LAST:event_checkPetButtonActionPerformed
 
