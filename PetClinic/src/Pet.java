@@ -5,22 +5,26 @@ public class Pet extends javax.swing.JFrame {
     
     Connection connection = null;
     
+    private static int petID;
     private static String petName;
+    private static int petOwnerID;
     private static String petOwner;
     private static String petAge;
     private static String petBreed;
     private static String petGender;
     private static String petNote;
 
-    public Pet(String petName, String petOwner, String petAge, String petBreed, String petGender, String petNote) {
+    public Pet(int petID, String petName, int petOwnerID, String petOwner, String petAge, String petBreed, String petGender, String petNote) {
         initComponents();
         connection = SQLiteConnection.dbConnector();
-        petSetter(petName, petOwner, petAge, petBreed, petGender, petNote);
+        petSetter(petID, petName, petOwnerID, petOwner, petAge, petBreed, petGender, petNote);
         petFieldSetter(petName, petOwner, petAge, petBreed, petGender, petNote);
     }
     
-    private void petSetter(String petName, String petOwner, String petAge, String petBreed, String petGender, String petNote) {
+    private void petSetter(int petID, String petName, int petOwnerID, String petOwner, String petAge, String petBreed, String petGender, String petNote) {
+        Pet.petID = petID;
         Pet.petName = petName;
+        Pet.petOwnerID = petOwnerID;
         Pet.petOwner = petOwner;
         Pet.petAge = petAge;
         Pet.petBreed = petBreed;
@@ -33,7 +37,7 @@ public class Pet extends javax.swing.JFrame {
         petOwnerField.setText(petOwner);
         petAgeField.setText(petAge);
         petBreedField.setText(petBreed);
-        petNoteField.setText(petNote);
+        medicalNoteArea.setText(petNote);
         
         if ("male".equals(petGender)) {
             maleRadioButton.setSelected(true);
@@ -59,9 +63,11 @@ public class Pet extends javax.swing.JFrame {
         maleRadioButton = new javax.swing.JRadioButton();
         femaleRadioButton = new javax.swing.JRadioButton();
         jLabel6 = new javax.swing.JLabel();
-        petNoteField = new javax.swing.JTextField();
         closeButton = new javax.swing.JButton();
         updateButton = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        medicalNoteArea = new javax.swing.JTextArea();
+        checkOutButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Update Pet");
@@ -74,6 +80,12 @@ public class Pet extends javax.swing.JFrame {
         jLabel3.setText("Pet Age");
 
         jLabel4.setText("Pet Breed");
+
+        petBreedField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                petBreedFieldActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Pet Gender");
 
@@ -93,6 +105,17 @@ public class Pet extends javax.swing.JFrame {
         });
 
         updateButton.setText("Update");
+        updateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateButtonActionPerformed(evt);
+            }
+        });
+
+        medicalNoteArea.setColumns(20);
+        medicalNoteArea.setRows(5);
+        jScrollPane1.setViewportView(medicalNoteArea);
+
+        checkOutButton.setText("Check out");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -108,26 +131,27 @@ public class Pet extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(jLabel6))
                 .addGap(46, 46, 46)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(closeButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(checkOutButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(updateButton))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(16, 16, 16)
-                                .addComponent(maleRadioButton)
-                                .addGap(36, 36, 36)
-                                .addComponent(femaleRadioButton))
                             .addComponent(petNameField, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE)
                             .addComponent(petOwnerField)
                             .addComponent(petAgeField)
                             .addComponent(petBreedField)
-                            .addComponent(petNoteField))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(43, 43, 43)
-                        .addComponent(closeButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
-                        .addComponent(updateButton)
-                        .addGap(58, 58, 58))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(16, 16, 16)
+                                .addComponent(maleRadioButton)
+                                .addGap(36, 36, 36)
+                                .addComponent(femaleRadioButton)
+                                .addGap(71, 71, 71)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -155,12 +179,15 @@ public class Pet extends javax.swing.JFrame {
                     .addComponent(femaleRadioButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(petNoteField, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
-                    .addComponent(jLabel6))
-                .addGap(18, 18, 18)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(updateButton)
-                    .addComponent(closeButton))
+                    .addComponent(closeButton)
+                    .addComponent(checkOutButton))
                 .addGap(30, 30, 30))
         );
 
@@ -171,14 +198,38 @@ public class Pet extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_closeButtonActionPerformed
 
+    private void petBreedFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_petBreedFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_petBreedFieldActionPerformed
+
+    private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
+        //get latest data
+        String newPetName = petNameField.getText();
+        String newPetOwner = petOwnerField.getText();
+        String newPetAge = petAgeField.getText();
+        String newPetBreed = petBreedField.getText();
+        
+        String newPetGender;
+        if(maleRadioButton.isSelected()) {
+            newPetGender = "male";
+        } else {
+            newPetGender = "female";
+        }
+       
+
+        //update database particulars
+//        String updatePet = "UPDATE Pet SET "
+    }//GEN-LAST:event_updateButtonActionPerformed
+
     public static void main(String args[]) {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new Pet(petName, petOwner, petAge, petBreed, petGender, petNote).setVisible(true);
+            new Pet(petID, petName, petOwnerID, petOwner, petAge, petBreed, petGender, petNote).setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton checkOutButton;
     private javax.swing.JButton closeButton;
     private javax.swing.JRadioButton femaleRadioButton;
     private javax.swing.ButtonGroup genderButtonGroup;
@@ -188,11 +239,12 @@ public class Pet extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JRadioButton maleRadioButton;
+    private javax.swing.JTextArea medicalNoteArea;
     private javax.swing.JTextField petAgeField;
     private javax.swing.JTextField petBreedField;
     private javax.swing.JTextField petNameField;
-    private javax.swing.JTextField petNoteField;
     private javax.swing.JTextField petOwnerField;
     private javax.swing.JButton updateButton;
     // End of variables declaration//GEN-END:variables

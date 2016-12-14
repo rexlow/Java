@@ -195,7 +195,7 @@ public class AddPatient extends javax.swing.JFrame {
         String addPatientQuery = "INSERT INTO Pet (petID, petName, petBreed, petGender, petAge, petOwner) VALUES(?,?,?,?,?,?)";
        
         try {
-            String gender = "male";
+            String gender;
             if (maleRadioButton.isSelected()) {
                 gender = "male";
             } else {

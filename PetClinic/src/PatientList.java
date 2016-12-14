@@ -217,7 +217,7 @@ public class PatientList extends javax.swing.JFrame implements TableListener {
             JOptionPane.showMessageDialog(null, "Please select a pet from the Pet Table");
         } else {
             //create an object from Pet Class
-            String checkPetQuery = "SELECT petName, petBreed, petGender, petAge, petNote, patientName FROM Pet INNER JOIN Patient ON Pet.petOwner = Patient.patientID WHERE Pet.petID = " + localPetID;
+            String checkPetQuery = "SELECT petID, petName, petBreed, petGender, petAge, petNote, patientID, patientName FROM Pet INNER JOIN Patient ON Pet.petOwner = Patient.patientID WHERE Pet.petID = " + localPetID;
             try {
                 PreparedStatement preparedStatement = connection.prepareStatement(checkPetQuery);
                 ResultSet resultSet = preparedStatement.executeQuery();
@@ -227,8 +227,9 @@ public class PatientList extends javax.swing.JFrame implements TableListener {
                     String petGender = resultSet.getString("petGender");
                     String petAge = resultSet.getString("petAge");
                     String petNote = resultSet.getString("petNote");
+                    int patientID = resultSet.getInt("patientID");
                     String patientName = resultSet.getString("patientName");
-                    Pet checkPetObject = new Pet(petName, patientName, petAge, petBreed, petGender, petNote);
+                    Pet checkPetObject = new Pet(localPetID, petName, patientID, patientName, petAge, petBreed, petGender, petNote);
                     checkPetObject.setVisible(true);
                 }
             } catch (Exception e) {
