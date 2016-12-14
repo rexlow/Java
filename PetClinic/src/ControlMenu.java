@@ -154,7 +154,8 @@ public class ControlMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_viewPatientListButtonActionPerformed
 
     private void viewArchieveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewArchieveButtonActionPerformed
-        
+        Archieve archieve = new Archieve();
+        archieve.setVisible(true);
     }//GEN-LAST:event_viewArchieveButtonActionPerformed
 
     /**
