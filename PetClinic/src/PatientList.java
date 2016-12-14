@@ -195,7 +195,7 @@ public class PatientList extends javax.swing.JFrame implements TableListener {
        if (localOwnerID <= 0) {
             JOptionPane.showMessageDialog(null, "Please select a patient from the Patient Table");
         } else {
-            String joinPatientAndPet = "SELECT petID, petName, petBreed, petGender, petAge, petNote FROM Pet INNER JOIN Patient ON Pet.petOwner = Patient.patientID WHERE Pet.petOwner =  " + localOwnerID;
+            String joinPatientAndPet = "SELECT petID, petName, petBreed, petGender, petAge, procedureA, procedureB, procedureC, petNote FROM Pet INNER JOIN Patient ON Pet.petOwner = Patient.patientID WHERE Pet.petOwner =  " + localOwnerID;
             try {
                 PreparedStatement preparedStatement = connection.prepareStatement(joinPatientAndPet);
                 ResultSet resultSet = preparedStatement.executeQuery();

@@ -1,3 +1,6 @@
+//commented code below are due to the double trigger nature of event listener
+//gonna ignore them for now due to time constraint
+
 import java.awt.event.ActionEvent;
 import java.sql.*;
 import java.util.ArrayList;
@@ -17,6 +20,10 @@ public class Pet extends javax.swing.JFrame {
     private static String petBreed;
     private static String petGender;
     private static String petNote;
+    
+    private static String procedureAName;
+    private static String procedureBName;
+    private static String procedureCName;
     
     private static double totalProcedurePrice;
     ArrayList<String> procedureList = new ArrayList<>();
@@ -328,7 +335,7 @@ public class Pet extends javax.swing.JFrame {
         }
 
         //update database particulars
-        String updatePet = "UPDATE Pet SET petName=?, petBreed=?, petGender=?, petAge=?, petOwner=?, petNote=? WHERE petID=" + petID;
+        String updatePet = "UPDATE Pet SET petName=?, petBreed=?, petGender=?, petAge=?, petOwner=?, petNote=?, procedureA=?, procedureB=?, procedureC=? WHERE petID=" + petID;
         try (PreparedStatement prepareStatement = connection.prepareStatement(updatePet)) {
             prepareStatement.setString(1, newPetName);
             prepareStatement.setString(2, newPetBreed);
@@ -336,6 +343,9 @@ public class Pet extends javax.swing.JFrame {
             prepareStatement.setString(4, newPetAge);
             prepareStatement.setInt(5, petOwnerID);
             prepareStatement.setString(6, newPetNote);
+            prepareStatement.setString(7, procedureAName);
+            prepareStatement.setString(8, procedureBName);
+            prepareStatement.setString(9, procedureCName);
             
             prepareStatement.executeUpdate();
         } catch (SQLException ex) {
@@ -353,7 +363,7 @@ public class Pet extends javax.swing.JFrame {
         procedureA.addActionListener((ActionEvent e) -> {
             int indexA = procedureA.getSelectedIndex();
             if (indexA != -1) {
-//                String selectedProcedure = procedureA.getSelectedItem().toString();
+                procedureAName = procedureA.getSelectedItem().toString();
                 totalProcedurePrice = totalProcedurePrice + procedurePriceList.get(indexA)*0.5;
                 totalPrice.setText(String.valueOf(totalProcedurePrice));
 //                subscribedProcedureList.add(selectedProcedure);
@@ -367,7 +377,7 @@ public class Pet extends javax.swing.JFrame {
         procedureB.addActionListener((ActionEvent e) -> {
             int indexB = procedureB.getSelectedIndex();
             if (indexB != -1) {
-//                String selectedProcedure = procedureB.getSelectedItem().toString();
+                procedureBName = procedureB.getSelectedItem().toString();
                 totalProcedurePrice = totalProcedurePrice + procedurePriceList.get(indexB)*0.5;
                 totalPrice.setText(String.valueOf(totalProcedurePrice));
 //                subscribedProcedureList.add(selectedProcedure);
@@ -381,7 +391,7 @@ public class Pet extends javax.swing.JFrame {
         procedureC.addActionListener((ActionEvent e) -> {
             int indexC = procedureC.getSelectedIndex();
             if (indexC != -1) {
-//                String selectedProcedure = procedureC.getSelectedItem().toString();
+                procedureCName = procedureC.getSelectedItem().toString();
                 totalProcedurePrice = totalProcedurePrice + procedurePriceList.get(indexC)*0.5;
                 totalPrice.setText(String.valueOf(totalProcedurePrice));
 //                subscribedProcedureList.add(selectedProcedure);
@@ -399,8 +409,26 @@ public class Pet extends javax.swing.JFrame {
     }//GEN-LAST:event_resetPropertiesActionPerformed
 
     private void checkOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkOutButtonActionPerformed
-        PDF invoice = new PDF(petName, petOwner, totalProcedurePrice);
-        invoice.printPDF();
+        String updateProcedure = "UPDATE Pet SET procedureA=?, procedureB=?, procedureC=? WHERE petID=" + petID;
+        String moveToArchieve = "INSERT INTO Archieve SELECT * FROM Pet WHERE petID=" + petID;
+        try (PreparedStatement prepareStatement = connection.prepareStatement(updateProcedure)) {
+            PreparedStatement moveToArchieveTable = connection.prepareStatement(moveToArchieve);
+            prepareStatement.setString(1, procedureAName);
+            prepareStatement.setString(2, procedureBName);
+            prepareStatement.setString(3, procedureCName);
+            
+            prepareStatement.executeUpdate();
+            moveToArchieveTable.executeUpdate();
+            
+            PDF invoice = new PDF(petName, petOwner, totalProcedurePrice);
+            invoice.printPDF();
+            JOptionPane.showMessageDialog(null, "Invoice created!");
+            dispose();
+        } catch (SQLException ex) {
+            Logger.getLogger(Pet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
     }//GEN-LAST:event_checkOutButtonActionPerformed
 
     public static void main(String args[]) {
