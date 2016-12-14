@@ -1,4 +1,6 @@
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 
 public class Pet extends javax.swing.JFrame {
@@ -76,6 +78,8 @@ public class Pet extends javax.swing.JFrame {
         jLabel1.setText("Pet Name");
 
         jLabel2.setText("Pet Owner");
+
+        petOwnerField.setEditable(false);
 
         jLabel3.setText("Pet Age");
 
@@ -208,6 +212,7 @@ public class Pet extends javax.swing.JFrame {
         String newPetOwner = petOwnerField.getText();
         String newPetAge = petAgeField.getText();
         String newPetBreed = petBreedField.getText();
+        String newPetNote = medicalNoteArea.getText();
         
         String newPetGender;
         if(maleRadioButton.isSelected()) {
@@ -218,7 +223,24 @@ public class Pet extends javax.swing.JFrame {
        
 
         //update database particulars
-//        String updatePet = "UPDATE Pet SET "
+        String updatePet = "UPDATE Pet SET petName=?, petBreed=?, petGender=?, petAge=?, petOwner=?, petNote=? WHERE petID=" + petID;
+        try {
+            PreparedStatement prepareStatement = connection.prepareStatement(updatePet);
+            prepareStatement.setString(1, newPetName);
+            prepareStatement.setString(2, newPetBreed);
+            prepareStatement.setString(3, newPetGender);
+            prepareStatement.setString(4, newPetAge);
+            prepareStatement.setInt(5, petOwnerID);
+            prepareStatement.setString(6, newPetNote);
+            
+            prepareStatement.executeUpdate();
+            prepareStatement.close();
+            JOptionPane.showMessageDialog(null, "Update Pet information successful");
+            dispose();
+        } catch (SQLException ex) {
+            Logger.getLogger(Pet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_updateButtonActionPerformed
 
     public static void main(String args[]) {

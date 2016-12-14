@@ -131,6 +131,9 @@
     <Component class="javax.swing.JTextField" name="petNameField">
     </Component>
     <Component class="javax.swing.JTextField" name="petOwnerField">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>

@@ -201,7 +201,6 @@ public class AddPatient extends javax.swing.JFrame {
             } else {
                 gender = "female";
             }
-            System.out.println(gender);
             try (PreparedStatement preparedStatement = connection.prepareStatement(addPatientQuery)) {
                 preparedStatement.setString(2, petNameField.getText());
                 preparedStatement.setString(3, petBreedField.getText());
@@ -209,6 +208,7 @@ public class AddPatient extends javax.swing.JFrame {
                 preparedStatement.setString(5, petAgeField.getText());
                 preparedStatement.setInt(6, ownerID);
                 preparedStatement.execute();
+                preparedStatement.close();
             }
             
             JOptionPane.showMessageDialog(null, "Successfull added patient");
