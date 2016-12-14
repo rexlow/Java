@@ -411,14 +411,19 @@ public class Pet extends javax.swing.JFrame {
     private void checkOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkOutButtonActionPerformed
         String updateProcedure = "UPDATE Pet SET procedureA=?, procedureB=?, procedureC=? WHERE petID=" + petID;
         String moveToArchieve = "INSERT INTO Archieve SELECT * FROM Pet WHERE petID=" + petID;
-        try (PreparedStatement prepareStatement = connection.prepareStatement(updateProcedure)) {
+        String deletePet = "DELETE FROM Pet WHERE petID=" + petID;
+        try {
+            PreparedStatement prepareStatement = connection.prepareStatement(updateProcedure);
             PreparedStatement moveToArchieveTable = connection.prepareStatement(moveToArchieve);
+            PreparedStatement deletePetTable = connection.prepareStatement(deletePet);
+            
             prepareStatement.setString(1, procedureAName);
             prepareStatement.setString(2, procedureBName);
             prepareStatement.setString(3, procedureCName);
             
             prepareStatement.executeUpdate();
             moveToArchieveTable.executeUpdate();
+            deletePetTable.executeUpdate();
             
             PDF invoice = new PDF(petName, petOwner, totalProcedurePrice);
             invoice.printPDF();
