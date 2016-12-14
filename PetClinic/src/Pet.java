@@ -19,6 +19,8 @@ public class Pet extends javax.swing.JFrame {
     private static String petNote;
     
     private static double totalProcedurePrice;
+    ArrayList<String> procedureList = new ArrayList<>();
+//    ArrayList<String> subscribedProcedureList = new ArrayList<>();
     ArrayList<Double> procedurePriceList = new ArrayList<>();
 
     public Pet(int petID, String petName, int petOwnerID, String petOwner, String petAge, String petBreed, String petGender, String petNote) {
@@ -351,8 +353,10 @@ public class Pet extends javax.swing.JFrame {
         procedureA.addActionListener((ActionEvent e) -> {
             int indexA = procedureA.getSelectedIndex();
             if (indexA != -1) {
+//                String selectedProcedure = procedureA.getSelectedItem().toString();
                 totalProcedurePrice = totalProcedurePrice + procedurePriceList.get(indexA)*0.5;
                 totalPrice.setText(String.valueOf(totalProcedurePrice));
+//                subscribedProcedureList.add(selectedProcedure);
             }
         });
         
@@ -363,8 +367,10 @@ public class Pet extends javax.swing.JFrame {
         procedureB.addActionListener((ActionEvent e) -> {
             int indexB = procedureB.getSelectedIndex();
             if (indexB != -1) {
+//                String selectedProcedure = procedureB.getSelectedItem().toString();
                 totalProcedurePrice = totalProcedurePrice + procedurePriceList.get(indexB)*0.5;
                 totalPrice.setText(String.valueOf(totalProcedurePrice));
+//                subscribedProcedureList.add(selectedProcedure);
             }
         });
         
@@ -375,8 +381,10 @@ public class Pet extends javax.swing.JFrame {
         procedureC.addActionListener((ActionEvent e) -> {
             int indexC = procedureC.getSelectedIndex();
             if (indexC != -1) {
+//                String selectedProcedure = procedureC.getSelectedItem().toString();
                 totalProcedurePrice = totalProcedurePrice + procedurePriceList.get(indexC)*0.5;
                 totalPrice.setText(String.valueOf(totalProcedurePrice));
+//                subscribedProcedureList.add(selectedProcedure);
             }
         });
         
@@ -416,6 +424,7 @@ public class Pet extends javax.swing.JFrame {
                 procedureModelA.addElement(resultSet.getString("procedureName"));
                 procedureModelB.addElement(resultSet.getString("procedureName"));
                 procedureModelC.addElement(resultSet.getString("procedureName"));
+                procedureList.add(resultSet.getString("procedureName"));
                 procedurePriceList.add(resultSet.getDouble("cost"));
             }
             
