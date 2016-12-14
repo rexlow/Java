@@ -143,6 +143,11 @@ public class Pet extends javax.swing.JFrame {
         jScrollPane1.setViewportView(medicalNoteArea);
 
         checkOutButton.setText("Check out");
+        checkOutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkOutButtonActionPerformed(evt);
+            }
+        });
 
         jLabel7.setText("Select Procedure");
 
@@ -210,36 +215,31 @@ public class Pet extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(3, 3, 3)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(closeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(checkOutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(resetProperties, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                                    .addComponent(updateButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(petNameField, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE)
-                        .addComponent(petOwnerField)
-                        .addComponent(petAgeField)
-                        .addComponent(petBreedField)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(16, 16, 16)
-                            .addComponent(maleRadioButton)
-                            .addGap(36, 36, 36)
-                            .addComponent(femaleRadioButton)
-                            .addGap(71, 71, 71)))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(procedureC, javax.swing.GroupLayout.Alignment.LEADING, 0, 296, Short.MAX_VALUE)
-                        .addComponent(procedureB, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(procedureA, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(rmLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(totalPrice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(28, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(closeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(checkOutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(resetProperties, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                            .addComponent(updateButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(petNameField)
+                    .addComponent(petOwnerField)
+                    .addComponent(petAgeField)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(maleRadioButton)
+                        .addGap(36, 36, 36)
+                        .addComponent(femaleRadioButton))
+                    .addComponent(procedureA, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(rmLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(totalPrice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(procedureC, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(procedureB, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(petBreedField))
+                .addGap(28, 28, 28))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -351,7 +351,7 @@ public class Pet extends javax.swing.JFrame {
         procedureA.addActionListener((ActionEvent e) -> {
             int indexA = procedureA.getSelectedIndex();
             if (indexA != -1) {
-                totalProcedurePrice = totalProcedurePrice + procedurePriceList.get(indexA);
+                totalProcedurePrice = totalProcedurePrice + procedurePriceList.get(indexA)*0.5;
                 totalPrice.setText(String.valueOf(totalProcedurePrice));
             }
         });
@@ -361,9 +361,9 @@ public class Pet extends javax.swing.JFrame {
     private void procedureBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_procedureBActionPerformed
         
         procedureB.addActionListener((ActionEvent e) -> {
-            int indexB = procedureA.getSelectedIndex();
+            int indexB = procedureB.getSelectedIndex();
             if (indexB != -1) {
-                totalProcedurePrice = totalProcedurePrice + procedurePriceList.get(indexB);
+                totalProcedurePrice = totalProcedurePrice + procedurePriceList.get(indexB)*0.5;
                 totalPrice.setText(String.valueOf(totalProcedurePrice));
             }
         });
@@ -373,9 +373,9 @@ public class Pet extends javax.swing.JFrame {
     private void procedureCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_procedureCActionPerformed
         
         procedureC.addActionListener((ActionEvent e) -> {
-            int indexC = procedureA.getSelectedIndex();
+            int indexC = procedureC.getSelectedIndex();
             if (indexC != -1) {
-                totalProcedurePrice = totalProcedurePrice + procedurePriceList.get(indexC);
+                totalProcedurePrice = totalProcedurePrice + procedurePriceList.get(indexC)*0.5;
                 totalPrice.setText(String.valueOf(totalProcedurePrice));
             }
         });
@@ -389,6 +389,11 @@ public class Pet extends javax.swing.JFrame {
         medicalNoteArea.setText("");
         resetTotalPrice();
     }//GEN-LAST:event_resetPropertiesActionPerformed
+
+    private void checkOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkOutButtonActionPerformed
+        PDF invoice = new PDF(petName, petOwner, totalProcedurePrice);
+        invoice.printPDF();
+    }//GEN-LAST:event_checkOutButtonActionPerformed
 
     public static void main(String args[]) {
         /* Create and display the form */
