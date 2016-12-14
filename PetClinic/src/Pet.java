@@ -21,6 +21,7 @@ public class Pet extends javax.swing.JFrame {
         connection = SQLiteConnection.dbConnector();
         petSetter(petID, petName, petOwnerID, petOwner, petAge, petBreed, petGender, petNote);
         petFieldSetter(petName, petOwner, petAge, petBreed, petGender, petNote);
+        procedureComboBox();
     }
     
     private void petSetter(int petID, String petName, int petOwnerID, String petOwner, String petAge, String petBreed, String petGender, String petNote) {
@@ -70,6 +71,16 @@ public class Pet extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         medicalNoteArea = new javax.swing.JTextArea();
         checkOutButton = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        procedureA = new javax.swing.JComboBox<>();
+        procedureB = new javax.swing.JComboBox<>();
+        procedureC = new javax.swing.JComboBox<>();
+        jLabel11 = new javax.swing.JLabel();
+        rmLabel = new javax.swing.JLabel();
+        totalPrice = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Update Pet");
@@ -121,41 +132,72 @@ public class Pet extends javax.swing.JFrame {
 
         checkOutButton.setText("Check out");
 
+        jLabel7.setText("Select Procedure");
+
+        jLabel8.setText("Procedure A");
+
+        jLabel9.setText("Procedure B");
+
+        jLabel10.setText("Procedure C");
+
+        procedureA.setMaximumRowCount(10);
+
+        jLabel11.setText("Total Price");
+
+        rmLabel.setText("RM");
+
+        totalPrice.setText("0");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6))
-                .addGap(46, 46, 46)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(closeButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(checkOutButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(updateButton))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(petNameField, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE)
-                            .addComponent(petOwnerField)
-                            .addComponent(petAgeField)
-                            .addComponent(petBreedField)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(16, 16, 16)
-                                .addComponent(maleRadioButton)
-                                .addGap(36, 36, 36)
-                                .addComponent(femaleRadioButton)
-                                .addGap(71, 71, 71)))
+                        .addComponent(jLabel1)
+                        .addComponent(jLabel2)
+                        .addComponent(jLabel3)
+                        .addComponent(jLabel4)
+                        .addComponent(jLabel5)
+                        .addComponent(jLabel6)
+                        .addComponent(jLabel7)
+                        .addComponent(jLabel11))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel9)
+                        .addComponent(jLabel8)
+                        .addComponent(jLabel10)))
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(petNameField, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE)
+                        .addComponent(petOwnerField)
+                        .addComponent(petAgeField)
+                        .addComponent(petBreedField)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(16, 16, 16)
+                            .addComponent(maleRadioButton)
+                            .addGap(36, 36, 36)
+                            .addComponent(femaleRadioButton)
+                            .addGap(71, 71, 71)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(procedureC, javax.swing.GroupLayout.Alignment.LEADING, 0, 296, Short.MAX_VALUE)
+                        .addComponent(procedureB, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(procedureA, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(rmLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(totalPrice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(closeButton)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(checkOutButton)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(updateButton))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -182,17 +224,34 @@ public class Pet extends javax.swing.JFrame {
                     .addComponent(maleRadioButton)
                     .addComponent(femaleRadioButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE))
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(procedureA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(procedureB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(procedureC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(updateButton)
+                    .addComponent(jLabel11)
+                    .addComponent(rmLabel)
+                    .addComponent(totalPrice))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(closeButton)
-                    .addComponent(checkOutButton))
-                .addGap(30, 30, 30))
+                    .addComponent(checkOutButton)
+                    .addComponent(updateButton))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -224,8 +283,7 @@ public class Pet extends javax.swing.JFrame {
 
         //update database particulars
         String updatePet = "UPDATE Pet SET petName=?, petBreed=?, petGender=?, petAge=?, petOwner=?, petNote=? WHERE petID=" + petID;
-        try {
-            PreparedStatement prepareStatement = connection.prepareStatement(updatePet);
+        try (PreparedStatement prepareStatement = connection.prepareStatement(updatePet)) {
             prepareStatement.setString(1, newPetName);
             prepareStatement.setString(2, newPetBreed);
             prepareStatement.setString(3, newPetGender);
@@ -234,12 +292,11 @@ public class Pet extends javax.swing.JFrame {
             prepareStatement.setString(6, newPetNote);
             
             prepareStatement.executeUpdate();
-            prepareStatement.close();
-            JOptionPane.showMessageDialog(null, "Update Pet information successful");
-            dispose();
         } catch (SQLException ex) {
             Logger.getLogger(Pet.class.getName()).log(Level.SEVERE, null, ex);
         }
+        JOptionPane.showMessageDialog(null, "Update Pet information successful");
+        dispose();
         
     }//GEN-LAST:event_updateButtonActionPerformed
 
@@ -249,6 +306,31 @@ public class Pet extends javax.swing.JFrame {
             new Pet(petID, petName, petOwnerID, petOwner, petAge, petBreed, petGender, petNote).setVisible(true);
         });
     }
+    
+    private void procedureComboBox() {
+        String petProcedure = "SELECT procedureName from Procedures";
+        try {
+            PreparedStatement prepareStatement = connection.prepareStatement(petProcedure);
+            ResultSet resultSet = prepareStatement.executeQuery();
+            
+            while(resultSet.next()) {
+                MutableComboBoxModel procedureModelA = (DefaultComboBoxModel)procedureA.getModel();
+                MutableComboBoxModel procedureModelB = (DefaultComboBoxModel)procedureB.getModel();
+                MutableComboBoxModel procedureModelC = (DefaultComboBoxModel)procedureC.getModel();
+                
+                while(resultSet.next()) {
+                    procedureModelA.addElement(resultSet.getString("procedureName"));
+                    procedureModelB.addElement(resultSet.getString("procedureName"));
+                    procedureModelC.addElement(resultSet.getString("procedureName"));
+                }
+            }
+            procedureA.setSelectedIndex(-1);
+            procedureB.setSelectedIndex(-1);
+            procedureC.setSelectedIndex(-1);
+        } catch (SQLException ex) {
+            Logger.getLogger(Pet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton checkOutButton;
@@ -256,11 +338,16 @@ public class Pet extends javax.swing.JFrame {
     private javax.swing.JRadioButton femaleRadioButton;
     private javax.swing.ButtonGroup genderButtonGroup;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JRadioButton maleRadioButton;
     private javax.swing.JTextArea medicalNoteArea;
@@ -268,6 +355,11 @@ public class Pet extends javax.swing.JFrame {
     private javax.swing.JTextField petBreedField;
     private javax.swing.JTextField petNameField;
     private javax.swing.JTextField petOwnerField;
+    private javax.swing.JComboBox<String> procedureA;
+    private javax.swing.JComboBox<String> procedureB;
+    private javax.swing.JComboBox<String> procedureC;
+    private javax.swing.JLabel rmLabel;
+    private javax.swing.JLabel totalPrice;
     private javax.swing.JButton updateButton;
     // End of variables declaration//GEN-END:variables
 }
