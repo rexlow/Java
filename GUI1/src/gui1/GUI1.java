@@ -3,6 +3,8 @@ package gui1;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -14,7 +16,7 @@ import javax.swing.UIManager;
  *
  * @author rexlow
  */
-public class GUI1  {
+public class GUI1 implements ActionListener {
 
     private final JFrame frame = new JFrame();
     private final JPanel panel1 = new JPanel();
@@ -31,7 +33,7 @@ public class GUI1  {
     public GUI1() {
         
         panel1.setLayout(new GridLayout(3,2));
-//        panel2.setLayout(new FlowLayout(FlowLayout.LEFT));
+        panel2.setLayout(new FlowLayout(FlowLayout.LEFT));
         
         panel1.add(new JLabel("Enter the length: "));
         panel2.add(jbtCalculate);
@@ -43,6 +45,10 @@ public class GUI1  {
         panel1.add(areaAns);
         panel1.add(perimeterAns);
         
+        //add action listener for buttons
+        jbtCalculate.addActionListener(this);
+        jbtClear.addActionListener(this);
+        
         frame.setLayout(new BorderLayout());
         frame.add(panel1);
         frame.add(panel2, BorderLayout.PAGE_END);
@@ -52,6 +58,24 @@ public class GUI1  {
         frame.setLocationRelativeTo(null); //center on the screen
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+    }
+    
+    @Override
+    public void actionPerformed(ActionEvent event) {
+        Object source = event.getSource();
+        if (source == jbtClear) {
+            lengthInput.setText("");
+            widthInput.setText("");
+            areaAns.setText("");
+            perimeterAns.setText("");
+        } else if (source == jbtCalculate) {
+            double length = Double.parseDouble(lengthInput.getText());
+            double width = Double.parseDouble(widthInput.getText());
+            double perimeter = (length*2) + (width*2);
+            double area = length*width;
+            perimeterAns.setText(Double.toString(perimeter));
+            areaAns.setText(Double.toString(area));
+        }
     }
     
     public static void main(String[] args) throws Exception {
