@@ -1,9 +1,12 @@
+package gui1;
+
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -28,15 +31,22 @@ public class First implements ActionListener {
     private final JButton jbtCalculate = new JButton("Calculate");
     private final JButton jbtClear = new JButton("Clear");
 
+    private final JCheckBox checkBox = new JCheckBox();
+
     public First() {
 
         panel1.setLayout(new GridLayout(3,2));
         panel2.setLayout(new FlowLayout(FlowLayout.LEFT));
 
+        //this particular checkBox is for question 4c
+        checkBox.setText("Check this");
+        checkBox.setToolTipText("This is tooltip text");
+
         panel1.add(new JLabel("Enter the length: "));
         panel2.add(jbtCalculate);
         panel1.add(new JLabel("Enter the width: "));
         panel2.add(jbtClear);
+        panel2.add(checkBox);
 
         panel1.add(lengthInput);
         panel1.add(widthInput);
