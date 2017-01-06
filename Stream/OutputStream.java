@@ -6,6 +6,8 @@ public class OutputStream {
     try {
       FileOutputStream fos = new FileOutputStream("destination.dat");
       fos.write(3);
+      fos.write(4);
+      fos.write(5);
       System.out.println("Done");
     } catch (IOException e) {
       System.out.println(e.getMessage());
